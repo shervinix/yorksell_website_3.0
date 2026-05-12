@@ -40,6 +40,9 @@ const SOCIAL = [
 const SERVICES = [
   { href: "/buy", label: "Buy" },
   { href: "/sell", label: "Sell" },
+  { href: "/home-value", label: "Home Valuation" },
+  { href: "/neighbourhoods", label: "Neighbourhoods" },
+  { href: "/property-management", label: "Property Management" },
   { href: "/compass", label: "Compass" },
   { href: "/listings", label: "Listings" },
   { href: "/footprint", label: "Footprint" },

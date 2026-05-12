@@ -246,6 +246,31 @@ export default function SellPage() {
         </div>
       </section>
 
+      {/* Home valuation CTA */}
+      <section className="border-t border-white/[0.06] bg-[var(--background)]">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+          <FadeUp>
+            <div className="flex flex-col gap-5 rounded-2xl border border-[var(--accent)]/20 bg-[var(--surface-elevated)] p-7 shadow-[0_4px_24px_rgba(0,0,0,0.2)] sm:flex-row sm:items-center sm:justify-between md:p-8">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-[var(--accent)]">Free — no obligation</p>
+                <h2 className="mt-1.5 text-xl font-semibold text-[var(--foreground)]">
+                  Not sure what your home is worth?
+                </h2>
+                <p className="mt-1.5 text-sm text-[var(--muted)] leading-relaxed max-w-lg">
+                  Get a free, precise valuation from a local agent using live comparables — not an algorithm. Delivered within 24–48 hours.
+                </p>
+              </div>
+              <Link
+                href="/home-value"
+                className="shrink-0 inline-flex h-11 items-center justify-center rounded-xl bg-[var(--accent)] px-6 text-sm font-semibold text-white transition hover:bg-[var(--accent-hover)]"
+              >
+                Get my free valuation
+              </Link>
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
       {/* The selling process */}
       <section className="border-t border-white/[0.06] bg-[var(--surface)]">
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 md:py-16">

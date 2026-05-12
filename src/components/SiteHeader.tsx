@@ -192,6 +192,8 @@ export default function SiteHeader() {
                       {[
                         { href: "/buy", label: "Buy" },
                         { href: "/sell", label: "Sell" },
+                        { href: "/home-value", label: "Home Valuation" },
+                        { href: "/neighbourhoods", label: "Neighbourhoods" },
                         { href: "/property-management", label: "Property Management" },
                       ].map(({ href, label }) => (
                         <Link key={href} href={href} className="block px-4 py-2.5 text-sm text-[var(--foreground)] hover:bg-white/5" role="menuitem" onClick={() => setServicesOpen(false)}>
@@ -501,6 +503,8 @@ export default function SiteHeader() {
               <div className="grid gap-2">
                 <MobileNavLink href="/buy" onClick={() => setMobileOpen(false)}>Buy</MobileNavLink>
                 <MobileNavLink href="/sell" onClick={() => setMobileOpen(false)}>Sell</MobileNavLink>
+                <MobileNavLink href="/home-value" onClick={() => setMobileOpen(false)}>Home Valuation</MobileNavLink>
+                <MobileNavLink href="/neighbourhoods" onClick={() => setMobileOpen(false)}>Neighbourhoods</MobileNavLink>
                 <MobileNavLink href="/property-management" onClick={() => setMobileOpen(false)}>Property Management</MobileNavLink>
               </div>
             </div>
