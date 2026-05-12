@@ -29,6 +29,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/neighbourhoods/midtown-toronto`,lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/neighbourhoods/forest-hill`,    lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/neighbourhoods/etobicoke`,      lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/neighbourhoods/oakville`,       lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/neighbourhoods/bridle-path`,    lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/neighbourhoods/mississauga`,    lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/neighbourhoods/richmond-hill`,  lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/home-value`,                    lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
   ];
 
