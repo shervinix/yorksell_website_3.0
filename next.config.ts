@@ -4,10 +4,12 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
+      { protocol: "https", hostname: "unsplash.com", pathname: "/**" },
       { protocol: "https", hostname: "data.crea.ca", pathname: "/**" },
       { protocol: "https", hostname: "**.crea.ca", pathname: "/**" },
       { protocol: "https", hostname: "ddfcdn.realtor.ca", pathname: "/**" },
     ],
+    formats: ["image/avif", "image/webp"],
   },
 };
 

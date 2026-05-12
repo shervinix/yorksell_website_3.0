@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { prisma } from "@/server/db/prisma";
 import { getFootprintData, getResolvedFootprintStats } from "@/lib/footprint";
@@ -7,12 +8,14 @@ import FootprintVolumeCounter from "./FootprintVolumeCounter";
 import FadeUp from "@/app/FadeUp";
 
 export const metadata: Metadata = {
-  title: "Footprint | Yorksell",
+  title: "GTA Real Estate Track Record | Yorksell Footprint",
   description:
-    "Yorksell Real Estate Group's footprint across the Greater Toronto Area. Sold, purchased, and active listings.",
+    "See Yorksell's track record across the Greater Toronto Area — sold properties, purchases, and active listings across Toronto, North York, Etobicoke, Mississauga, and beyond.",
+  alternates: { canonical: "https://yorksell.com/footprint" },
   openGraph: {
-    title: "Our Footprint | Yorksell Real Estate Group",
-    description: "Our sold, purchased, and active listings across the GTA.",
+    title: "GTA Real Estate Track Record | Yorksell Footprint",
+    description: "Yorksell's sold properties, purchases, and active listings mapped across the Greater Toronto Area.",
+    url: "https://yorksell.com/footprint",
   },
 };
 
@@ -29,12 +32,13 @@ export default async function FootprintPage() {
       {/* Hero */}
       <header className="relative -mt-[6.5rem] min-h-[40vh] overflow-hidden pt-[6.5rem]">
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src={HERO_IMAGE}
             alt=""
-            className="h-full w-full object-cover"
-            loading="eager"
-            referrerPolicy="no-referrer"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/50 to-black/80" />
         </div>

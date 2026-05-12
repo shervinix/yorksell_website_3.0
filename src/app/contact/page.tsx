@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/server/auth";
 import { prisma } from "@/server/db/prisma";
 import ContactForm from "./ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact | Yorksell",
+  title: "Contact Our Toronto Realtors | Yorksell Real Estate Group",
   description:
-    "Get in touch with Yorksell Real Estate Group. Toronto & GTA. Buying, selling, investing.",
+    "Get in touch with Yorksell Real Estate Group. Toronto & GTA realtors available Mon–Fri 9am–9pm. Call (416) 639-2353 or send us a message — we respond within one business day.",
+  alternates: { canonical: "https://yorksell.com/contact" },
   openGraph: {
-    title: "Contact | Yorksell Real Estate Group",
-    description: "Toronto & GTA. We're here to help with your real estate goals.",
+    title: "Contact Our Toronto Realtors | Yorksell Real Estate Group",
+    description: "Reach Yorksell's Toronto & GTA real estate team. Call (416) 639-2353 or send a message. We respond within one business day.",
+    url: "https://yorksell.com/contact",
   },
 };
 
@@ -81,12 +84,13 @@ export default async function ContactPage({ searchParams }: PageProps) {
       {/* Hero */}
       <header className="relative -mt-[6.5rem] min-h-[46vh] overflow-hidden pt-[6.5rem]">
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src={HERO_IMAGE}
             alt=""
-            className="h-full w-full object-cover"
-            loading="eager"
-            referrerPolicy="no-referrer"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/50 to-black/85" />
         </div>

@@ -71,15 +71,53 @@ export default async function BlogPostPage({ params }: PageProps) {
     .filter((p) => p.slug !== slug)
     .slice(0, 3);
 
+  const postUrl = `${BASE}/blog/${encodeURIComponent(post.slug)}`;
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
+    "@id": postUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": postUrl,
+    },
     headline: post.title,
     description: post.excerpt,
     datePublished: post.publishedAt?.toISOString(),
     dateModified: post.updatedAt.toISOString(),
-    url: `${BASE}/blog/${encodeURIComponent(post.slug)}`,
-    ...(post.coverImageUrl && { image: post.coverImageUrl }),
+    url: postUrl,
+    inLanguage: "en-CA",
+    ...(post.coverImageUrl && {
+      image: {
+        "@type": "ImageObject",
+        url: post.coverImageUrl,
+        width: 1200,
+        height: 630,
+      },
+    }),
+    author: {
+      "@type": "Organization",
+      "@id": "https://yorksell.com/#organization",
+      name: "Yorksell Real Estate Group",
+      url: "https://yorksell.com",
+    },
+    publisher: {
+      "@type": "Organization",
+      "@id": "https://yorksell.com/#organization",
+      name: "Yorksell Real Estate Group",
+      url: "https://yorksell.com",
+      logo: {
+        "@type": "ImageObject",
+        url: `${BASE}/logo2.png`,
+        width: 180,
+        height: 48,
+      },
+    },
+    isPartOf: {
+      "@type": "Blog",
+      "@id": `${BASE}/blog`,
+      name: "Yorksell Real Estate Blog",
+      publisher: { "@id": "https://yorksell.com/#organization" },
+    },
   };
 
   return (

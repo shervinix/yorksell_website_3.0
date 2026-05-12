@@ -1,17 +1,57 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import SellerForm from "./SellerForm";
 import SellFAQ from "./SellFAQ";
 import FadeUp from "@/app/FadeUp";
 
 export const metadata: Metadata = {
-  title: "Sell | Yorksell",
+  title: "Sell Your Home in Toronto & GTA | Yorksell Real Estate Group",
   description:
-    "Sell your property in the GTA with Yorksell Real Estate Group. Pricing, marketing, and expert representation.",
+    "Selling your home in Toronto or the GTA? Yorksell delivers accurate pricing, professional marketing, and expert negotiation. Get a free home valuation today.",
+  alternates: { canonical: "https://yorksell.com/sell" },
   openGraph: {
-    title: "Sell with Yorksell | Toronto & GTA",
-    description: "Expert seller representation. Get a free valuation and list with confidence.",
+    title: "Sell Your Home in Toronto & GTA | Yorksell Real Estate Group",
+    description: "Expert seller representation. Accurate pricing, professional marketing, and proven negotiation across Toronto and the GTA.",
+    url: "https://yorksell.com/sell",
   },
+};
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How is commission structured?",
+      acceptedAnswer: { "@type": "Answer", text: "In Ontario, the listing brokerage fee is typically a percentage of the sale price, negotiated at the time of listing. Part of that covers the buyer's agent commission. We walk you through the full breakdown before you sign anything so there are no surprises at closing." },
+    },
+    {
+      "@type": "Question",
+      name: "When is the best time to sell?",
+      acceptedAnswer: { "@type": "Answer", text: "Spring and fall are traditionally the busiest markets in Toronto, which can mean more buyers but also more competing listings. The best time to sell depends on your property type, neighbourhood, and personal timeline. We give you an honest read on current conditions rather than a generic answer." },
+    },
+    {
+      "@type": "Question",
+      name: "Should I renovate before listing?",
+      acceptedAnswer: { "@type": "Answer", text: "Usually not extensively. Targeted improvements like fresh paint, minor repairs, decluttering, and professional staging tend to deliver the best return. Major renovations rarely recover their cost in the sale price. We walk through the property with you and advise on exactly what is and isn't worth doing." },
+    },
+    {
+      "@type": "Question",
+      name: "What is a holdback and should I use one?",
+      acceptedAnswer: { "@type": "Answer", text: "A holdback means setting an offer review date several days after listing, giving buyers time to view the property and prepare competing offers. In the right conditions it can generate a multiple-offer scenario and drive the price up. We advise based on current market activity, your property type, and neighbourhood. It is not always the right move." },
+    },
+    {
+      "@type": "Question",
+      name: "How long will my property be on the market?",
+      acceptedAnswer: { "@type": "Answer", text: "It depends on pricing, presentation, and the current market. Correctly priced, well-presented properties in active neighbourhoods often sell within the first two weeks. We set realistic expectations upfront and adjust strategy if needed rather than letting a listing go stale." },
+    },
+    {
+      "@type": "Question",
+      name: "Do I need to be home during showings?",
+      acceptedAnswer: { "@type": "Answer", text: "No, and in most cases it is better if you are not. Buyers tend to move through a property more comfortably and spend more time when the owner is absent. We coordinate all showings, manage lockbox access, and follow up with every agent who views the property." },
+    },
+  ],
 };
 
 const HERO_IMAGE =
@@ -94,16 +134,18 @@ const INCLUDED = [
 export default function SellPage() {
   return (
     <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
       {/* Hero */}
       <header className="relative -mt-[6.5rem] min-h-[45vh] overflow-hidden pt-[6.5rem]">
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src={HERO_IMAGE}
             alt=""
-            className="h-full w-full object-cover"
-            loading="eager"
-            referrerPolicy="no-referrer"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/50 to-black/80" />
         </div>

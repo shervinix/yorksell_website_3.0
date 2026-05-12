@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import JoinYorksellForm from "./JoinYorksellForm";
 
 export const metadata: Metadata = {
-  title: "Join Yorksell",
+  title: "Join Our Real Estate Team | Toronto & GTA | Yorksell",
   description:
-    "Join Yorksell Real Estate Group as an agent. We're looking for talented professionals in Toronto & GTA.",
+    "Looking to grow your real estate career in Toronto? Join Yorksell Real Estate Group — a focused team operating under Royal LePage in the GTA. Apply today.",
+  alternates: { canonical: "https://yorksell.com/join" },
   openGraph: {
-    title: "Join Yorksell | Real Estate Agents | Toronto & GTA",
-    description: "Join our team. We're building a focused group of agents in Toronto and the GTA.",
+    title: "Join Our Real Estate Team | Toronto & GTA | Yorksell",
+    description: "Grow your real estate career with Yorksell. A focused GTA team under Royal LePage. Serious agents only.",
+    url: "https://yorksell.com/join",
   },
 };
 
@@ -21,12 +24,13 @@ export default function JoinYorksellPage() {
       {/* Hero */}
       <header className="relative -mt-[6.5rem] min-h-[45vh] overflow-hidden pt-[6.5rem]">
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src={HERO_IMAGE}
             alt=""
-            className="h-full w-full object-cover"
-            loading="eager"
-            referrerPolicy="no-referrer"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/50 to-black/80" />
         </div>

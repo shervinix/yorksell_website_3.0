@@ -1,15 +1,18 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { teamMembers } from "@/data/team";
 import FadeUp from "@/app/FadeUp";
 
 export const metadata: Metadata = {
-  title: "Meet The Team",
+  title: "Our Toronto Real Estate Team | Yorksell Real Estate Group",
   description:
-    "Meet the partners at Yorksell Real Estate Group. Toronto & GTA. A focused team for buyers and sellers.",
+    "Meet the Yorksell team — experienced Toronto & GTA realtors specialising in buying, selling, and investment. Real people, real results.",
+  alternates: { canonical: "https://yorksell.com/team" },
   openGraph: {
-    title: "Meet The Team | Yorksell Real Estate Group",
-    description: "Toronto & GTA. Meet our partners. Advice you can trust.",
+    title: "Our Toronto Real Estate Team | Yorksell Real Estate Group",
+    description: "Meet our experienced Toronto & GTA realtors. Specialists in buying, selling, and real estate investment.",
+    url: "https://yorksell.com/team",
   },
 };
 
@@ -46,12 +49,13 @@ export default function TeamPage() {
       {/* Hero */}
       <header className="relative -mt-[6.5rem] min-h-[40vh] overflow-hidden pt-[6.5rem]">
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src={HERO_IMAGE}
             alt=""
-            className="h-full w-full object-cover"
-            loading="eager"
-            referrerPolicy="no-referrer"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/50 to-black/80" />
         </div>

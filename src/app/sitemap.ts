@@ -8,11 +8,28 @@ const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yorksell.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
-    { url: BASE, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
-    { url: `${BASE}/listings`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
-    { url: `${BASE}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
-    { url: `${BASE}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE}/search`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.6 },
+    { url: BASE,                                  lastModified: new Date(), changeFrequency: "weekly",  priority: 1.0 },
+    { url: `${BASE}/listings`,                    lastModified: new Date(), changeFrequency: "daily",   priority: 0.9 },
+    { url: `${BASE}/buy`,                         lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE}/sell`,                        lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE}/contact`,                     lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/about`,                       lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/team`,                        lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE}/blog`,                        lastModified: new Date(), changeFrequency: "weekly",  priority: 0.7 },
+    { url: `${BASE}/compass`,                     lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE}/compass/corporate`,           lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE}/compass/partners`,            lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE}/property-management`,         lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE}/footprint`,                   lastModified: new Date(), changeFrequency: "weekly",  priority: 0.6 },
+    { url: `${BASE}/join`,                        lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE}/reviews`,                       lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE}/neighbourhoods`,                lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/neighbourhoods/north-york`,     lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/neighbourhoods/yorkville`,      lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/neighbourhoods/midtown-toronto`,lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/neighbourhoods/forest-hill`,    lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/neighbourhoods/etobicoke`,      lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/home-value`,                    lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
   ];
 
   const [listings, blogPosts] = await Promise.all([

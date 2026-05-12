@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { REVIEWS, GOOGLE_REVIEWS_URL } from "@/data/reviews";
 import { getFeaturedListings } from "@/lib/get-featured-listings";
@@ -7,6 +8,19 @@ import HeroSearch from "@/app/HeroSearch";
 import FadeUp from "@/app/FadeUp";
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: "Toronto & GTA Real Estate | Yorksell Real Estate Group",
+  description:
+    "Yorksell Real Estate Group — trusted Toronto & GTA realtors. Expert buyer and seller representation, investment guidance, property management, and full-service relocation. Call +1 (416) 639-2353.",
+  alternates: { canonical: "https://yorksell.com" },
+  openGraph: {
+    title: "Toronto & GTA Real Estate | Yorksell Real Estate Group",
+    description:
+      "Trusted Toronto & GTA realtors. Buying, selling, investing, property management, and relocation. Clear process, honest advice.",
+    url: "https://yorksell.com",
+  },
+};
 
 export default async function HomePage() {
   const featured = await getFeaturedListings();
@@ -35,11 +49,16 @@ export default async function HomePage() {
 
         <div className="relative z-10 mx-auto flex max-w-6xl flex-1 px-4 pb-16 pt-2 sm:px-6 md:pb-24 md:pt-4">
           <div className="flex max-w-2xl flex-col justify-end">
-            <h1 className="hero-enter-1 text-4xl font-semibold tracking-tight text-white md:text-5xl lg:text-6xl">
-              Advice You Can Trust.
+            <h1 className="hero-enter-1 flex flex-col gap-3">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+                Toronto &amp; GTA Real Estate
+              </span>
+              <span className="text-4xl font-semibold tracking-tight text-white md:text-5xl lg:text-6xl">
+                Advice You Can Trust.
+              </span>
             </h1>
             <p className="hero-enter-2 mt-5 max-w-lg text-lg text-white/80 leading-relaxed">
-              Real estate across Toronto and the GTA. Clear process, honest advice, no noise
+              Buying, selling, investing, and relocation across Toronto and the GTA. Clear process, honest advice, no noise.
             </p>
             <div className="hero-enter-3 mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link

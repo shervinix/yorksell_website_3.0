@@ -1,17 +1,57 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import BuyerForm from "./BuyerForm";
 import BuyFAQ from "./BuyFAQ";
 import FadeUp from "@/app/FadeUp";
 
 export const metadata: Metadata = {
-  title: "Buy | Yorksell",
+  title: "Buy a Home in Toronto & GTA | Yorksell Real Estate Group",
   description:
-    "Buy your next home in the GTA with Yorksell Real Estate Group. Expert buyer representation, search support, and negotiation.",
+    "Looking to buy a home in Toronto or the GTA? Yorksell offers expert buyer representation, curated property search, and proven negotiation. No cost to buyers in Ontario.",
+  alternates: { canonical: "https://yorksell.com/buy" },
   openGraph: {
-    title: "Buy with Yorksell | Toronto & GTA",
-    description: "Expert buyer representation. We help you find and secure the right property.",
+    title: "Buy a Home in Toronto & GTA | Yorksell Real Estate Group",
+    description: "Expert buyer representation across Toronto and the GTA. We help you find, negotiate, and close the right property.",
+    url: "https://yorksell.com/buy",
   },
+};
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Do I pay for buyer representation?",
+      acceptedAnswer: { "@type": "Answer", text: "In Ontario, buyer agent commission is typically paid by the seller as part of the transaction. In most cases, there is no direct cost to you for our representation. We'll walk you through how this works before we begin so there are no surprises." },
+    },
+    {
+      "@type": "Question",
+      name: "Do I need a mortgage pre-approval before we start?",
+      acceptedAnswer: { "@type": "Answer", text: "We strongly recommend it. A pre-approval sets your real budget, makes your offers more competitive, and avoids the disappointment of falling in love with a property you can't finance. We can connect you with trusted mortgage brokers if you need one." },
+    },
+    {
+      "@type": "Question",
+      name: "How long does a typical search take?",
+      acceptedAnswer: { "@type": "Answer", text: "It depends on the market and how specific your criteria are. Most buyers find their property within 4–12 weeks of active searching. We'll give you an honest read on what to expect based on your budget and target neighbourhoods." },
+    },
+    {
+      "@type": "Question",
+      name: "What is a deposit and how much do I need?",
+      acceptedAnswer: { "@type": "Answer", text: "A deposit is submitted with your offer and held in trust until closing. In Toronto, deposits typically range from $25,000 to 5% of the purchase price depending on the property type and market conditions. It forms part of your down payment." },
+    },
+    {
+      "@type": "Question",
+      name: "What happens if my offer isn't accepted?",
+      acceptedAnswer: { "@type": "Answer", text: "We debrief on what happened: price, conditions, competing bids. We adjust strategy if needed and keep searching. Multiple offer rounds are common in Toronto. Each one builds a clearer picture of the market and what it takes to win." },
+    },
+    {
+      "@type": "Question",
+      name: "Can you help me buy a pre-construction property?",
+      acceptedAnswer: { "@type": "Answer", text: "Yes. Pre-construction involves different timelines, deposit structures, and risks than resale. We walk you through the assignment clauses, developer reputation, and long-term value considerations before you commit." },
+    },
+  ],
 };
 
 const HERO_IMAGE =
@@ -81,16 +121,18 @@ const PROCESS_STEPS = [
 export default function BuyPage() {
   return (
     <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
       {/* Hero */}
       <header className="relative -mt-[6.5rem] min-h-[45vh] overflow-hidden pt-[6.5rem]">
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src={HERO_IMAGE}
             alt=""
-            className="h-full w-full object-cover"
-            loading="eager"
-            referrerPolicy="no-referrer"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/50 to-black/80" />
         </div>

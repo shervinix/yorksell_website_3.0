@@ -11,18 +11,29 @@ export async function generateStaticParams() {
   return getTeamMemberSlugs().map((slug) => ({ slug }));
 }
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yorksell.com";
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await (typeof (params as Promise<{ slug: string }>).then === "function"
     ? (params as Promise<{ slug: string }>)
     : Promise.resolve(params as { slug: string }));
   const member = getTeamMember(slug);
   if (!member) return { title: "Team Member | Yorksell" };
+  const description = member.tagline
+    ? `${member.tagline} ${member.role} at Yorksell Real Estate Group, Toronto & GTA.`
+    : member.bio.slice(0, 160);
+  const canonicalUrl = `${BASE_URL}/team/${slug}`;
   return {
-    title: `${member.name} | Yorksell`,
-    description: member.tagline ?? member.bio.slice(0, 160),
+    title: `${member.name} | Toronto Realtor | Yorksell`,
+    description,
+    alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${member.name} | Yorksell Real Estate Group`,
-      description: member.tagline ?? member.bio.slice(0, 160),
+      title: `${member.name} | ${member.role} | Yorksell Real Estate Group`,
+      description,
+      url: canonicalUrl,
+      ...(member.image?.startsWith("http") || member.image?.startsWith("/")
+        ? { images: [{ url: member.image.startsWith("/") ? `${BASE_URL}${member.image}` : member.image, width: 800, height: 800 }] }
+        : {}),
     },
   };
 }
@@ -35,8 +46,33 @@ export default async function TeamMemberPage({ params }: PageProps) {
   const member = getTeamMember(slug);
   if (!member) notFound();
 
+  const memberUrl = `${BASE_URL}/team/${slug}`;
+  const agentJsonLd = {
+    "@context": "https://schema.org",
+    "@type": ["RealEstateAgent", "Person"],
+    "@id": memberUrl,
+    name: member.name,
+    url: memberUrl,
+    jobTitle: member.role,
+    description: member.tagline ?? member.bio.slice(0, 200),
+    ...(member.image
+      ? { image: member.image.startsWith("/") ? `${BASE_URL}${member.image}` : member.image }
+      : {}),
+    ...(member.contact.email ? { email: `mailto:${member.contact.email}` } : {}),
+    ...(member.contact.phone
+      ? { telephone: member.contact.phone.replace(/\D/g, "").replace(/^(\d{10})$/, "+1$1") }
+      : {}),
+    worksFor: {
+      "@type": "Organization",
+      "@id": "https://yorksell.com/#organization",
+      name: "Yorksell Real Estate Group",
+    },
+    areaServed: { "@type": "City", name: "Toronto" },
+  };
+
   return (
     <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(agentJsonLd) }} />
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 md:py-16">
         <Link
           href="/team"

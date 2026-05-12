@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import CompassIntakeForm from "./CompassIntakeForm";
 
 export const metadata: Metadata = {
-  title: "Compass | Yorksell",
+  title: "Toronto Relocation Service | Yorksell Compass",
   description:
-    "Yorksell Compass is a full-service relocation program, managing every detail of your move, whether you're arriving in Toronto or leaving it.",
+    "Relocating to Toronto or the GTA? Yorksell Compass is a full-service relocation program — one point of contact for real estate, movers, schools, legal, and more.",
+  alternates: { canonical: "https://yorksell.com/compass" },
   openGraph: {
-    title: "Yorksell Compass | Relocation Program",
-    description:
-      "Your entire move. One point of contact. Yorksell Compass handles everything: from movers and lawyers to schools and banking.",
+    title: "Toronto Relocation Service | Yorksell Compass",
+    description: "One point of contact for your entire Toronto relocation. Real estate, movers, schools, legal, and banking — fully managed.",
+    url: "https://yorksell.com/compass",
   },
 };
 
@@ -111,12 +113,13 @@ export default function CompassPage() {
       {/* Hero */}
       <header className="relative -mt-[6.5rem] min-h-[65vh] overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src={HERO_IMAGE}
             alt=""
-            className="h-full w-full object-cover"
-            loading="eager"
-            referrerPolicy="no-referrer"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/70 via-black/55 to-black/80" />
         </div>

@@ -122,13 +122,18 @@ async function resolveId(params: PageProps["params"]): Promise<string> {
     : (params as { id: string }).id;
 }
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yorksell.com";
+
 export async function generateMetadata({ params }: PageProps) {
   const id = await resolveId(params);
   const listing = await prisma.listing.findFirst({
     where: { OR: [{ id }, { mlsNumber: id }, { ddfId: id }] },
-    select: { addressLine: true, city: true, province: true, price: true, beds: true, baths: true, mlsNumber: true },
+    select: { addressLine: true, city: true, province: true, price: true, beds: true, baths: true, mlsNumber: true, photoUrl: true },
   });
   if (!listing) return { title: "Listing | Yorksell" };
+
+  const slug = listing.mlsNumber?.trim() || id;
+  const canonicalUrl = `${BASE_URL}/listings/${encodeURIComponent(slug)}`;
   const title = [listing.addressLine, listing.mlsNumber].filter(Boolean).join(" · ") || "Listing";
   const parts = [
     listing.price ? `$${listing.price.toLocaleString()}` : null,
@@ -136,9 +141,19 @@ export async function generateMetadata({ params }: PageProps) {
     listing.baths != null ? `${listing.baths} bath` : null,
     [listing.city, listing.province].filter(Boolean).join(", ") || null,
   ].filter(Boolean);
+  const description = parts.length ? parts.join(" · ") : "Property listing from Yorksell Real Estate Group.";
+
   return {
     title: `${title} | Yorksell`,
-    description: parts.length ? parts.join(" · ") : "Property listing from Yorksell Real Estate Group.",
+    description,
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      title: `${title} | Yorksell Real Estate Group`,
+      description,
+      url: canonicalUrl,
+      type: "website",
+      ...(listing.photoUrl ? { images: [{ url: listing.photoUrl, width: 1200, height: 800 }] } : {}),
+    },
   };
 }
 
@@ -257,8 +272,50 @@ export default async function ListingPage({ params }: PageProps) {
   /* agent / brokerage */
   const { agents, brokerages } = parseAgentDetails(raw);
 
+  const canonicalSlug = listing.mlsNumber?.trim() || listing.id;
+  const canonicalUrl = `${BASE_URL}/listings/${encodeURIComponent(canonicalSlug)}`;
+
+  const listingJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "RealEstateListing",
+    "@id": canonicalUrl,
+    name: listing.addressLine || `Listing ${listing.mlsNumber ?? listing.id}`,
+    url: canonicalUrl,
+    ...(description && { description }),
+    ...(listing.price && {
+      offers: {
+        "@type": "Offer",
+        price: listing.price,
+        priceCurrency: "CAD",
+        availability: "https://schema.org/InStock",
+        seller: { "@id": "https://yorksell.com/#organization" },
+      },
+    }),
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: listing.addressLine ?? undefined,
+      addressLocality: listing.city ?? undefined,
+      addressRegion: listing.province ?? undefined,
+      postalCode: listing.postalCode ?? undefined,
+      addressCountry: "CA",
+    },
+    ...(hasCoords && {
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: listing.lat,
+        longitude: listing.lng,
+      },
+    }),
+    ...(listing.beds != null && { numberOfRooms: listing.beds }),
+    ...(listing.baths != null && { numberOfBathroomsTotal: listing.baths }),
+    ...(photoUrls.length > 0 && { image: photoUrls.slice(0, 5) }),
+    ...(listing.propertyType && { additionalType: listing.propertyType }),
+    broker: { "@id": "https://yorksell.com/#organization" },
+  };
+
   return (
     <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(listingJsonLd) }} />
 
       {/* Photo hero */}
       <section className="relative -mt-[6.5rem] h-[65vh] min-h-[320px] w-full pt-[6.5rem]">
@@ -412,8 +469,8 @@ export default async function ListingPage({ params }: PageProps) {
               <div className="mt-5 border-t border-white/[0.06] pt-5 text-xs text-white/30">
                 Full details, pricing context, and private showings available.
                 Call us at{" "}
-                <a href="tel:+14164874311" className="text-white/50 hover:text-white">
-                  (416) 487-4311
+                <a href="tel:+14166392353" className="text-white/50 hover:text-white">
+                  (416) 639-2353
                 </a>
               </div>
             </div>

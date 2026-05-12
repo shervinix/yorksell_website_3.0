@@ -1,17 +1,57 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import PropertyManagementForm from "./PropertyManagementForm";
 import PMFaq from "./PMFaq";
 import FadeUp from "@/app/FadeUp";
 
 export const metadata: Metadata = {
-  title: "Property Management | Yorksell",
+  title: "Property Management Toronto & GTA | Yorksell Real Estate Group",
   description:
-    "Full-service property management in the GTA. Tenant placement, screening, maintenance coordination, and lease management.",
+    "Full-service property management in Toronto and the GTA. Tenant placement, screening, maintenance coordination, lease management, and LTB support. Call (416) 639-2353.",
+  alternates: { canonical: "https://yorksell.com/property-management" },
   openGraph: {
-    title: "Property Management | Yorksell | Toronto & GTA",
-    description: "Full-service property management. Let us handle your rental properties.",
+    title: "Property Management Toronto & GTA | Yorksell Real Estate Group",
+    description: "Full-service property management across Toronto and the GTA. Tenant placement, maintenance, lease renewals, and LTB support.",
+    url: "https://yorksell.com/property-management",
   },
+};
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How is your management fee calculated?",
+      acceptedAnswer: { "@type": "Answer", text: "Our fee is a percentage of the monthly rent, charged monthly. The exact rate depends on the package you select. There are no hidden setup fees. We walk you through the full cost breakdown before you sign anything." },
+    },
+    {
+      "@type": "Question",
+      name: "What does the tenant placement process involve?",
+      acceptedAnswer: { "@type": "Answer", text: "We market the unit across rental platforms and our agent network, coordinate showings, and vet every applicant with credit checks, employment verification, and reference calls. We present you with our recommendation and you make the final call before any lease is signed." },
+    },
+    {
+      "@type": "Question",
+      name: "How do you handle maintenance requests?",
+      acceptedAnswer: { "@type": "Answer", text: "Tenants contact us directly for any maintenance issues. We coordinate with our vetted vendor network to get work done promptly. For anything above a pre-agreed cost threshold, we notify you before authorizing the work. You are not fielding calls at 11pm." },
+    },
+    {
+      "@type": "Question",
+      name: "Can I use my own contractors?",
+      acceptedAnswer: { "@type": "Answer", text: "Yes. If you have preferred vendors you want us to work with, we are happy to coordinate through them. We handle scheduling, access, and follow-up regardless of who does the work." },
+    },
+    {
+      "@type": "Question",
+      name: "Do you handle Landlord and Tenant Board matters?",
+      acceptedAnswer: { "@type": "Answer", text: "We assist with documentation, notices, and process guidance for common situations like late payments or lease violations. For formal LTB hearings or filings that require legal representation, we refer you to trusted paralegals and can brief them on your case." },
+    },
+    {
+      "@type": "Question",
+      name: "How do you handle lease renewals?",
+      acceptedAnswer: { "@type": "Answer", text: "We reach out proactively before the lease end date, review current market rents, and advise on whether to renew at the existing rate, increase within Ontario's allowable guidelines, or re-list the unit. We handle all renewal paperwork and tenant communication." },
+    },
+  ],
 };
 
 const HERO_IMAGE =
@@ -76,16 +116,18 @@ const PROCESS_STEPS = [
 export default function PropertyManagementPage() {
   return (
     <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
       {/* Hero */}
       <header className="relative -mt-[6.5rem] min-h-[45vh] overflow-hidden pt-[6.5rem]">
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src={HERO_IMAGE}
             alt=""
-            className="h-full w-full object-cover"
-            loading="eager"
-            referrerPolicy="no-referrer"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/50 to-black/80" />
         </div>
